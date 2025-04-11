@@ -17,12 +17,12 @@ NC='\033[0m'
 
 clear
 echo
-echo -e "${WHITE} ░█▀▄░█▀▀░█▀▄░█░░░█▀█░█▀█░▀█▀░█▀▀░█▀▄ ${NC}"
-echo -e "${WHITE} ░█░█░█▀▀░█▀▄░█░░░█░█░█▀█░░█░░█▀▀░█▀▄ ${NC}"
-echo -e "${WHITE} ░▀▀░░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░▀ ${NC}"
-echo -e "${WHITE} ░█▀▀░█▀▀░█▀▄░▀█▀░█▀█░▀█▀             ${NC}"
-echo -e "${WHITE} ░▀▀█░█░░░█▀▄░░█░░█▀▀░░█░             ${NC}"
-echo -e "${WHITE} ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░░░▀░             ${NC}"
+echo -e "${WHITE} ░█▀▄░█▀▀░█░█░█▀▀░█▀▄░▀█▀ ${NC}"
+echo -e "${WHITE} ░█▀▄░█▀▀░▀▄▀░█▀▀░█▀▄░░█░ ${NC}"
+echo -e "${WHITE} ░▀░▀░▀▀▀░░▀░░▀▀▀░▀░▀░░▀░ ${NC}"
+echo -e "${WHITE} ░█▀▀░█▀▀░█▀▄░▀█▀░█▀█░▀█▀ ${NC}"
+echo -e "${WHITE} ░▀▀█░█░░░█▀▄░░█░░█▀▀░░█░ ${NC}"
+echo -e "${WHITE} ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░░░▀░ ${NC}"
 echo
 echo -e "${WHITE} by github@fadelhbr${NC}"
 echo
@@ -40,9 +40,9 @@ if [ ! -f "list_app.txt" ]; then
 fi
 
 app_count=$(grep -v "^$" list_app.txt | grep -v "^#" | wc -l)
-echo -e "Found ${GREEN}$app_count${NC} applications to restore in list_app.txt"
+echo -e "Found ${WHITE}$app_count${NC} applications to restore in list_app.txt"
 
-echo -e "${YELLOW}Checking for connected devices...${NC}"
+echo -e "${WHITE}Checking for connected devices...${NC}"
 devices=($(adb devices | grep -v "List" | grep "device$" | cut -f1))
 
 if [ ${#devices[@]} -eq 0 ]; then
@@ -53,7 +53,7 @@ fi
 
 selected_device=""
 if [ ${#devices[@]} -gt 1 ]; then
-    echo -e "${CYAN}Multiple devices found. Please select one:${NC}"
+    echo -e "${WHITE}Multiple devices found. Please select one:${NC}"
     for i in "${!devices[@]}"; do
         echo "$((i+1)). ${devices[$i]}"
     done
@@ -70,24 +70,22 @@ else
     selected_device=${devices[0]}
 fi
 
-echo -e "${GREEN}Selected device: $selected_device${NC}"
+echo -e "${WHITE}Selected device: $selected_device${NC}"
 echo
-echo -e "${YELLOW}=============================================================================${NC}"
-echo -e "${YELLOW}This script will try to restore $app_count previously debloated applications.${NC}"
-echo -e "${YELLOW}Note: Some system apps may not be restored successfully.${NC}"
-echo -e "${YELLOW}=============================================================================${NC}"
+echo -e "${WHITE}=============================================================================${NC}"
+echo -e "${WHITE}This script will try to restore $app_count previously debloated applications.${NC}"
+echo -e "${WHITE}Note: Some system apps may not be restored successfully.${NC}"
+echo -e "${WHITE}=============================================================================${NC}"
 echo
 
 read -p "Do you want to continue? (y/n): " confirm
 if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}Operation cancelled by user.${NC}"
+    echo -e "${WHITE}Operation cancelled by user.${NC}"
     exit 0
 fi
 
 echo
-echo -e "${BLUE}=============================================================================${NC}"
-echo -e "${GREEN}Starting restore process...${NC}"
-echo -e "${BLUE}=============================================================================${NC}"
+echo -e "${WHITE}Starting restore process...${NC}"
 echo
 
 reinstall_app() {
@@ -116,11 +114,9 @@ while IFS= read -r package || [ -n "$package" ]; do
     fi
 done < "list_app.txt"
 
-echo -e "${BLUE}=============================================================================${NC}"
-echo -e "${GREEN}Restore process completed!${NC}"
+echo -e "${WHITE}Restore process completed!${NC}"
 echo -e "${GREEN}Successfully restored: $success_count packages${NC}"
 echo -e "${RED}Failed to restore: $fail_count packages${NC}"
-echo -e "${BLUE}=============================================================================${NC}"
 echo
 echo -e "${YELLOW}Note: You may need to reboot your device for all changes to take effect.${NC}"
 echo

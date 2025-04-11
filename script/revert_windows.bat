@@ -10,12 +10,12 @@ IF %ERRORLEVEL% NEQ 0 (
 
 cls
 echo
-echo ░█▀▄░█▀▀░█▀▄░█░░░█▀█░█▀█░▀█▀░█▀▀░█▀▄
-echo ░█░█░█▀▀░█▀▄░█░░░█░█░█▀█░░█░░█▀▀░█▀▄
-echo ░▀▀░░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░▀
-echo ░█▀▀░█▀▀░█▀▄░▀█▀░█▀█░▀█▀            
-echo ░▀▀█░█░░░█▀▄░░█░░█▀▀░░█░            
-echo ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░░░▀░            
+echo ░█▀▄░█▀▀░█░█░█▀▀░█▀▄░▀█▀
+echo ░█▀▄░█▀▀░▀▄▀░█▀▀░█▀▄░░█░
+echo ░▀░▀░▀▀▀░░▀░░▀▀▀░▀░▀░░▀░
+echo ░█▀▀░█▀▀░█▀▄░▀█▀░█▀█░▀█▀
+echo ░▀▀█░█░░░█▀▄░░█░░█▀▀░░█░
+echo ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░░░▀░        
 echo
 echo by github@fadelhbr
 
@@ -91,9 +91,7 @@ if /i not "%confirm%"=="y" (
 )
 
 echo.
-echo =============================================================================
 echo Starting restore process...
-echo =============================================================================
 echo.
 
 set /a success_count=0
@@ -104,11 +102,9 @@ for /f "tokens=*" %%p in (list_app.txt) do (
 )
 
 echo.
-echo ============================================================================
 echo Restore process completed!
 echo Successfully restored: %success_count% packages
 echo Failed to restore: %fail_count% packages
-echo ============================================================================
 echo.
 echo Note: You may need to reboot your device for all changes to take effect.
 pause
