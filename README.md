@@ -1,4 +1,4 @@
-# Android Debloat Tool
+# Samsung Debloat Tool
 
 ![Debloater Script](/img/terminal.png)
 
@@ -103,7 +103,7 @@ If you want to restore the removed apps:
 
 After running this tool, you'll have a cleaner Android experience with more storage space and potentially better battery life, as shown in the image below:
 
-![Debloat Results](/img/result.jpg)
+<img src="/img/result.jpg" alt="Debloat Results" width="500"/>
 
 ## 🔋 Recommended Apps
 
