@@ -103,7 +103,7 @@ If you want to restore the removed apps:
 
 After running this tool, you'll have a cleaner Android experience with more storage space and potentially better battery life, as shown in the image below:
 
-<img src="/img/result.jpg" alt="Debloat Results" width="500"/>
+<img src="/img/result.jpg" alt="Debloat Results" width="250"/>
 
 ## 🔋 Recommended Apps
 
