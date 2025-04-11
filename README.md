@@ -1,4 +1,4 @@
-# Samsung Debloat Tool
+# Samsung Debloat Script
 
 ![Debloater Script](/img/terminal.png)
 
