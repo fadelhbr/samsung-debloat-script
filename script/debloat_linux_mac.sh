@@ -27,21 +27,18 @@ echo
 echo -e "${WHITE} by github@fadelhbr${NC}"
 echo
 
-# Check for ADB
 if ! command -v adb &> /dev/null; then
     echo -e "${RED}ERROR: ADB not found in PATH${NC}"
     echo "Please install Android SDK Platform Tools"
     exit 1
 fi
 
-# Check for list_app.txt file
 if [ ! -f "list_app.txt" ]; then
     echo -e "${RED}ERROR: list_app.txt file not found${NC}"
     echo "This file should contain package names to debloat, one per line"
     exit 1
 fi
 
-# Count packages to remove
 app_count=$(grep -v "^$" list_app.txt | grep -v "^#" | wc -l)
 echo -e "Found ${GREEN}$app_count${NC} applications to debloat in list_app.txt"
 
@@ -106,12 +103,9 @@ uninstall_app() {
 success_count=0
 fail_count=0
 
-# Read all packages into an array first
 mapfile -t packages < list_app.txt
 
-# Process each package in the array
 for package in "${packages[@]}"; do
-    # Skip empty lines and comments
     if [[ ! -z "$package" && ! "$package" =~ ^[[:space:]]*# ]]; then
         uninstall_app "$package" "$selected_device"
         if [ $? -eq 0 ]; then

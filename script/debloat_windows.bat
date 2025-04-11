@@ -103,10 +103,10 @@ set /a success_count=0
 set /a fail_count=0
 set /a skipped_count=0
 
-REM Create a temporary file containing all package names
+REM
 type list_app.txt > temp_packages.txt
 
-REM Process each package in the temp file
+REM
 for /f "usebackq tokens=*" %%p in ("temp_packages.txt") do (
     set "line=%%p"
     if "!line!"=="" (
@@ -118,7 +118,7 @@ for /f "usebackq tokens=*" %%p in ("temp_packages.txt") do (
     )
 )
 
-REM Clean up temporary file
+REM
 del temp_packages.txt >nul 2>&1
 
 echo.
