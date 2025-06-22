@@ -90,7 +90,7 @@ echo
 
 reinstall_app() {
     echo -e "Restoring ${YELLOW}$1${NC}..."
-    if adb -s "$2" shell cmd package install-existing "$1" | grep -v "Failure"; then
+    if adb -s "$2" shell cmd package install-existing "$1" | grep -Ev "(Failure|doesn't exist)"; then
         echo -e "${GREEN}[SUCCESS]${NC} Package restored."
         return 0
     else
