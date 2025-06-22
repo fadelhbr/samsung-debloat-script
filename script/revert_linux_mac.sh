@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [ "$(id -u)" != "0" ]; then
-    echo "This script requires administrative privileges."
+if [ "$(id -u)" != "0" ] && ! id -Gn | grep -qw 'adbusers'; then
+    echo "This script requires root privileges or membership in the 'adbusers' group to access USB devices."
+    echo "Attempting to re-run with sudo..."
     exec sudo "$0" "$@"
     exit $?
 fi
@@ -90,7 +91,7 @@ echo
 
 reinstall_app() {
     echo -e "Restoring ${YELLOW}$1${NC}..."
-    if adb -s "$2" shell cmd package install-existing "$1" | grep -v "Failure"; then
+    if adb -s "$2" shell cmd package install-existing "$1" | grep -Ev "(Failure|doesn't exist)"; then
         echo -e "${GREEN}[SUCCESS]${NC} Package restored."
         return 0
     else
@@ -102,7 +103,9 @@ reinstall_app() {
 success_count=0
 fail_count=0
 
-while IFS= read -r package || [ -n "$package" ]; do
+mapfile -t packages < list_app.txt
+
+for package in "${packages[@]}"; do
     if [[ ! -z "$package" && ! "$package" =~ ^[[:space:]]*# ]]; then
         reinstall_app "$package" "$selected_device"
         if [ $? -eq 0 ]; then
@@ -112,7 +115,7 @@ while IFS= read -r package || [ -n "$package" ]; do
         fi
         echo
     fi
-done < "list_app.txt"
+done
 
 echo -e "${WHITE}Restore process completed!${NC}"
 echo -e "${GREEN}Successfully restored: $success_count packages${NC}"
