@@ -103,7 +103,9 @@ reinstall_app() {
 success_count=0
 fail_count=0
 
-while IFS= read -r package || [ -n "$package" ]; do
+mapfile -t packages < list_app.txt
+
+for package in "${packages[@]}"; do
     if [[ ! -z "$package" && ! "$package" =~ ^[[:space:]]*# ]]; then
         reinstall_app "$package" "$selected_device"
         if [ $? -eq 0 ]; then
@@ -113,7 +115,7 @@ while IFS= read -r package || [ -n "$package" ]; do
         fi
         echo
     fi
-done < "list_app.txt"
+done
 
 echo -e "${WHITE}Restore process completed!${NC}"
 echo -e "${GREEN}Successfully restored: $success_count packages${NC}"
