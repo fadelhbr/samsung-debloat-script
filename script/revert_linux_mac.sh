@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-if [ "$(id -u)" != "0" ]; then
-    echo "This script requires administrative privileges."
+if [ "$(id -u)" != "0" ] && ! id -Gn | grep -qw 'adbusers'; then
+    echo "This script requires root privileges or membership in the 'adbusers' group to access USB devices."
+    echo "Attempting to re-run with sudo..."
     exec sudo "$0" "$@"
     exit $?
 fi
