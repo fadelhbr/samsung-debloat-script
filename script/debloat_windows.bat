@@ -1,5 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d "%~dp0"
 
 NET SESSION >nul 2>&1
 IF %ERRORLEVEL% NEQ 0 (
